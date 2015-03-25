@@ -5,5 +5,5 @@ setup(name='cloudutils-libs',
       author='Stefan Andres',
       author_email='s.andres@syseleven.de',
       license='Apache',
-      packages=['sys11.cloudutilslibs'],
+      packages=['syseleven.cloudutilslibs'],
       zip_safe=False)
