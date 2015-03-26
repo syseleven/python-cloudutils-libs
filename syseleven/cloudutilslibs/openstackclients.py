@@ -14,11 +14,11 @@ from keystoneclient.auth.identity import v2
 from keystoneclient import session
 from novaclient.client import Client as nova_client
 
-from syseleven.cloudutils.kclient import (keystone_kwargs,
+from syseleven.cloudutilslibs.kclient import (keystone_kwargs,
                                         get_ksclient,
                                         get_endpoint)
 
-from syseleven.cloudutils.utils import dict_merge
+from syseleven.cloudutilslibs.utils import dict_merge
 
 import logging
 global LOG
