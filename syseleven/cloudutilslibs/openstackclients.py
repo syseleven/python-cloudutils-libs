@@ -2,6 +2,10 @@
 
 from copy import deepcopy
 
+# https://urllib3.readthedocs.org/en/latest/security.html#insecureplatformwarning
+import requests
+requests.packages.urllib3.disable_warnings()
+
 ### python openstack clients ###
 # heat
 from heatclient import client as heat_client
