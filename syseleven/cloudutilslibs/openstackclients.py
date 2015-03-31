@@ -3,8 +3,11 @@
 from copy import deepcopy
 
 # https://urllib3.readthedocs.org/en/latest/security.html#insecureplatformwarning
-import requests
-requests.packages.urllib3.disable_warnings()
+try:
+    import requests
+    requests.packages.urllib3.disable_warnings()
+except AttributeError:
+    pass
 
 ### python openstack clients ###
 # heat
