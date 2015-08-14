@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
 
-
-from oslo.config import cfg
+try:
+    from oslo.config import cfg
+except ImportError:
+    from oslo_config import cfg
 import logging
 
 def start_logging():
