@@ -38,7 +38,7 @@ def get_heat_client(keystone_env = {}):
     _keystone_kwargs = dict_merge(_keystone_kwargs, keystone_env)
     LOG.debug('keystone auth: %s' % _keystone_kwargs)
     endpoint = get_endpoint(ksclient, **_keystone_kwargs)
-    client = heat_client.Client('1', endpoint=endpoint, token=ksclient.auth_ref['token']['id'], **_keystone_kwargs)
+    client = heat_client.Client('1', endpoint=endpoint, token=ksclient.auth_ref['auth_token'], **_keystone_kwargs)
 
     return client
 
@@ -49,7 +49,7 @@ def get_neutron_client(keystone_env = {}):
     _keystone_kwargs = dict_merge(_keystone_kwargs, keystone_env)
     LOG.debug('keystone auth: %s' % _keystone_kwargs)
     endpoint = get_endpoint(ksclient, **_keystone_kwargs)
-    client = neutron_client.Client('2.0', endpoint_url=endpoint, token=ksclient.auth_ref['token']['id'], **_keystone_kwargs)
+    client = neutron_client.Client('2.0', endpoint_url=endpoint, token=ksclient.auth_ref['auth_token'], **_keystone_kwargs)
 
     return client
 

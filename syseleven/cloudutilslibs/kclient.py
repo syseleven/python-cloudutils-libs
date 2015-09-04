@@ -2,7 +2,7 @@
 
 import os
 from heatclient import client as heat_client
-from keystoneclient.v2_0 import client as ksclient
+from keystoneclient.v3 import client as ksclient
 
 import logging
 global LOG
