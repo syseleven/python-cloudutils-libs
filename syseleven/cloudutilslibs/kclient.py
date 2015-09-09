@@ -2,7 +2,11 @@
 
 import os
 from heatclient import client as heat_client
-from keystoneclient.v3 import client as ksclient
+
+if os.environ['OS_AUTH_URL'].endswith('/v3'):
+    from keystoneclient.v3 import client as ksclient
+else:
+    from keystoneclient.v2_0 import client as ksclient
 
 import logging
 global LOG
