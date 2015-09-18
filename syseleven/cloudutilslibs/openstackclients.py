@@ -72,11 +72,11 @@ def get_nova_client(keystone_env = {}):
     #print _keystone_kwargs
     if os.environ['OS_AUTH_URL'].endswith('/v3'):
         _keystone_kwargs['user_id'] = None
-        _keystone_kwargs['user_domain_id'] = 'default'
+        _keystone_kwargs['user_domain_id'] = os.environ['OS_USER_DOMAIN_ID']
         _keystone_kwargs['user_domain_name'] = None
         _keystone_kwargs['project_name'] = os.environ['OS_TENANT_NAME']
-        _keystone_kwargs['project_domain_id'] = None
-        _keystone_kwargs['project_domain_name'] = 'default'
+        _keystone_kwargs['project_domain_id'] = os.environ['OS_PROJECT_DOMAIN_ID']
+        _keystone_kwargs['project_domain_name'] = None
         del _keystone_kwargs['tenant_name']
         nova_auth = v3.Password(**_keystone_kwargs)
     else:
