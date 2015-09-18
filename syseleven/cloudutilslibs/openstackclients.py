@@ -19,6 +19,7 @@ from neutronclient.neutron import client as neutron_client
 
 # nova
 from keystoneclient.auth.identity import v2
+from keystoneclient.auth.identity import v3
 from keystoneclient import session
 from novaclient.client import Client as nova_client
 
@@ -69,7 +70,18 @@ def get_nova_client(keystone_env = {}):
     _keystone_kwargs = dict_merge(_keystone_kwargs, keystone_env)
     LOG.debug('keystone auth: %s' % _keystone_kwargs)
     #print _keystone_kwargs
-    nova_auth = v2.Password(**_keystone_kwargs)
+    if os.environ['OS_AUTH_URL'].endswith('/v3'):
+        _keystone_kwargs['user_id'] = None
+        _keystone_kwargs['user_domain_id'] = 'default'
+        _keystone_kwargs['user_domain_name'] = None
+        _keystone_kwargs['project_name'] = os.environ['OS_TENANT_NAME']
+        _keystone_kwargs['project_domain_id'] = None
+        _keystone_kwargs['project_domain_name'] = 'default'
+        del _keystone_kwargs['tenant_name']
+        nova_auth = v3.Password(**_keystone_kwargs)
+    else:
+        nova_auth = v2.Password(**_keystone_kwargs)
+
     nova_session = session.Session(auth=nova_auth)
     client = nova_client('2', session=nova_session)
 
