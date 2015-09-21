@@ -69,15 +69,9 @@ def get_nova_client(keystone_env = {}):
         del _keystone_kwargs['service_type']
     _keystone_kwargs = dict_merge(_keystone_kwargs, keystone_env)
     LOG.debug('keystone auth: %s' % _keystone_kwargs)
-    #print _keystone_kwargs
     if os.environ['OS_AUTH_URL'].endswith('/v3'):
-        _keystone_kwargs['user_id'] = None
-        _keystone_kwargs['user_domain_id'] = os.environ['OS_USER_DOMAIN_ID']
-        _keystone_kwargs['user_domain_name'] = None
-        _keystone_kwargs['project_name'] = os.environ['OS_TENANT_NAME']
-        _keystone_kwargs['project_domain_id'] = os.environ['OS_PROJECT_DOMAIN_ID']
-        _keystone_kwargs['project_domain_name'] = None
-        del _keystone_kwargs['tenant_name']
+        if _keystone_kwargs.has_key('tenant_name'):
+          del _keystone_kwargs['tenant_name']
         nova_auth = v3.Password(**_keystone_kwargs)
     else:
         nova_auth = v2.Password(**_keystone_kwargs)
